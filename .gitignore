@@ -1,0 +1,12 @@
+# Leave entire .ipython checkpoint folder
+*/.ipynb*
+*Untitled*
+*/dataSink/*
+*/.idea*
+*/app-logs*
+*__pycache__*
+*/chk-point-dir*
+
+*.crc
+*.parquet
+*/*/_SUCCESS
