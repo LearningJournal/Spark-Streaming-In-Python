@@ -8,6 +8,8 @@ if __name__ == "__main__":
         .builder \
         .appName("Streaming Word Count") \
         .master("local[3]") \
+        .config("spark.streaming.stopGracefullyOnShutdown", "true") \
+        .config("spark.sql.shuffle.partitions", 3) \
         .getOrCreate()
 
     logger = Log4j(spark)
@@ -18,7 +20,7 @@ if __name__ == "__main__":
         .option("port", "9999") \
         .load()
 
-    lines_df.printSchema()
+    # lines_df.printSchema()
 
     # words_df = lines_df.select(explode(split("value", " ")).alias("word"))
     words_df = lines_df.select(expr("explode(split(value,' ')) as word"))
