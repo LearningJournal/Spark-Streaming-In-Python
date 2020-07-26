@@ -8,5 +8,4 @@
 */chk-point-dir*
 
 *.crc
-*.parquet
 */*/_SUCCESS
