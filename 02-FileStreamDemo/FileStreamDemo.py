@@ -1,6 +1,5 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import expr
-from pyspark.sql.types import StructType, StructField, StringType, LongType, DoubleType, IntegerType, ArrayType
 
 from lib.logger import Log4j
 
