@@ -10,44 +10,13 @@ if __name__ == "__main__":
         .appName("File Streaming Demo") \
         .master("local[3]") \
         .config("spark.streaming.stopGracefullyOnShutdown", "true") \
+        .config("spark.sql.streaming.schemaInference", "true") \
         .getOrCreate()
 
     logger = Log4j(spark)
 
-    schema = StructType([
-        StructField("InvoiceNumber", StringType()),
-        StructField("CreatedTime", LongType()),
-        StructField("StoreID", StringType()),
-        StructField("PosID", StringType()),
-        StructField("CashierID", StringType()),
-        StructField("CustomerType", StringType()),
-        StructField("CustomerCardNo", StringType()),
-        StructField("TotalAmount", DoubleType()),
-        StructField("NumberOfItems", IntegerType()),
-        StructField("PaymentMethod", StringType()),
-        StructField("CGST", DoubleType()),
-        StructField("SGST", DoubleType()),
-        StructField("CESS", DoubleType()),
-        StructField("DeliveryType", StringType()),
-        StructField("DeliveryAddress", StructType([
-            StructField("AddressLine", StringType()),
-            StructField("City", StringType()),
-            StructField("State", StringType()),
-            StructField("PinCode", StringType()),
-            StructField("ContactNumber", StringType())
-        ])),
-        StructField("InvoiceLineItems", ArrayType(StructType([
-            StructField("ItemCode", StringType()),
-            StructField("ItemDescription", StringType()),
-            StructField("ItemPrice", DoubleType()),
-            StructField("ItemQty", IntegerType()),
-            StructField("TotalValue", DoubleType())
-        ]))),
-    ])
-
     raw_df = spark.readStream \
         .format("json") \
-        .schema(schema) \
         .option("path", "input") \
         .option("maxFilesPerTrigger", 1) \
         .load()
