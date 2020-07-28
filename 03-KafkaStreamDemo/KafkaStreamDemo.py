@@ -68,7 +68,7 @@ if __name__ == "__main__":
         .withColumn("TotalValue", expr("LineItem.TotalValue")) \
         .drop("LineItem")
 
-    invoice_writer_query = explode_df.writeStream \
+    invoice_writer_query = flattened_df.writeStream \
         .format("json") \
         .queryName("Flattened Invoice Writer") \
         .outputMode("append") \
