@@ -1,0 +1,22 @@
+{
+  "type": "record",
+  "name": "InvoiceItem",
+  "namespace": "guru.learningjournal.spark.examples.types",
+  "fields": [
+    {"name": "InvoiceNumber","type": ["string", "null"]},
+    {"name": "CreatedTime","type": ["long", "null"]},
+    {"name": "StoreID","type": ["string", "null"]},
+    {"name": "PosID","type": ["string", "null"]},
+    {"name": "CustomerType","type": ["string", "null"]},
+    {"name": "CustomerCardNo","type": ["string", "null"]},
+    {"name": "DeliveryType","type": ["string", "null"]},
+    {"name": "City","type": ["string", "null"]},
+    {"name": "State","type": ["string", "null"]},
+    {"name": "PinCode","type": ["string", "null"]},
+    {"name": "ItemCode","type": ["string", "null"]},
+    {"name": "ItemDescription","type": ["string", "null"]},
+    {"name": "ItemPrice","type": ["double", "null"]},
+    {"name": "ItemQty","type": ["int", "null"]},
+    {"name": "TotalValue","type": ["double", "null"]}
+  ]
+}
