@@ -1,6 +1,6 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import from_json, col, to_timestamp, window
-from pyspark.sql.types import StructType, StructField, StringType, LongType, DoubleType
+from pyspark.sql.types import StructType, StructField, StringType, DoubleType
 
 from lib.logger import Log4j
 
