@@ -1,3 +1,9 @@
-STR1534:{"InvoiceNumber": 101,"CreatedTime": "2019-02-05 10:01:00","StoreID": "STR1534", "TotalAmount": 1920}
-STR1534:{"InvoiceNumber": 103,"CreatedTime": "2019-02-05 10:03:19","StoreID": "STR1534", "TotalAmount": 2400}
-STR1534:{"InvoiceNumber": 105,"CreatedTime": "2019-02-05 10:07:50","StoreID": "STR1534", "TotalAmount": 6375}
+SET41:{"CreatedTime": "2019-02-05 09:54:00","Reading": 36.2}
+SET41:{"CreatedTime": "2019-02-05 09:59:00","Reading": 36.5}
+SET41:{"CreatedTime": "2019-02-05 10:04:00","Reading": 36.8}
+SET41:{"CreatedTime": "2019-02-05 10:09:00","Reading": 36.2}
+SET41:{"CreatedTime": "2019-02-05 10:14:00","Reading": 36.5}
+SET41:{"CreatedTime": "2019-02-05 10:19:00","Reading": 36.3}
+SET41:{"CreatedTime": "2019-02-05 10:24:00","Reading": 37.7}
+SET41:{"CreatedTime": "2019-02-05 10:29:00","Reading": 37.2}
+

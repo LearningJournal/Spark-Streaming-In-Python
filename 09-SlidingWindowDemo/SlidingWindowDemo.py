@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import from_json, col, to_timestamp, window
+from pyspark.sql.functions import from_json, col, to_timestamp, window, max
 from pyspark.sql.types import StructType, StructField, StringType, DoubleType
 
 from lib.logger import Log4j
@@ -7,49 +7,47 @@ from lib.logger import Log4j
 if __name__ == "__main__":
     spark = SparkSession \
         .builder \
-        .appName("Sliding Window Demo") \
         .master("local[3]") \
+        .appName("Sliding Window Demo") \
         .config("spark.streaming.stopGracefullyOnShutdown", "true") \
+        .config("spark.sql.shuffle.partitions", 1) \
         .getOrCreate()
 
     logger = Log4j(spark)
 
     invoice_schema = StructType([
-        StructField("InvoiceNumber", StringType()),
         StructField("CreatedTime", StringType()),
-        StructField("StoreID", StringType()),
-        StructField("TotalAmount", DoubleType())
+        StructField("Reading", DoubleType())
     ])
 
-    kafka_df = spark.readStream \
+    kafka_source_df = spark \
+        .readStream \
         .format("kafka") \
         .option("kafka.bootstrap.servers", "localhost:9092") \
-        .option("subscribe", "invoices") \
+        .option("subscribe", "sensor") \
         .option("startingOffsets", "earliest") \
         .load()
 
-    value_df = kafka_df.select(from_json(col("value").cast("string"), invoice_schema).alias("value"))
+    value_df = kafka_source_df.select(col("key").cast("string").alias("SensorID"),
+                                      from_json(col("value").cast("string"), invoice_schema).alias("value"))
 
-    # value_df.printSchema()
-    # value_df.show(truncate=False)
+    sensor_df = value_df.select("SensorID", "value.*") \
+        .withColumn("CreatedTime", to_timestamp(col("CreatedTime"), "yyyy-MM-dd HH:mm:ss"))
 
-    invoice_df = value_df.select("value.*") \
-        .withColumn("CreatedTime", to_timestamp("CreatedTime", "yyyy-MM-dd HH:mm:ss"))
+    agg_df = sensor_df \
+        .withWatermark("CreatedTime", "30 minute") \
+        .groupBy(col("SensorID"),
+                 window(col("CreatedTime"), "15 minute", "5 minute")) \
+        .agg(max("Reading").alias("MaxReading"))
 
-    count_df = invoice_df.groupBy("StoreID",
-                                  window("CreatedTime", "5 minute", "1 minute")).count()
+    output_df = agg_df.select("SensorID", "window.start", "window.end", "MaxReading")
 
-    # count_df.printSchema()
-    # count_df.show(truncate=False)
-
-    output_df = count_df.select("StoreID", "window.start", "window.end", "count")
-
-    windowQuery = output_df.writeStream \
+    window_query = output_df.writeStream \
         .format("console") \
         .outputMode("update") \
         .option("checkpointLocation", "chk-point-dir") \
         .trigger(processingTime="1 minute") \
         .start()
 
-    logger.info("Counting Invoices")
-    windowQuery.awaitTermination()
+    logger.info("Waiting for Query")
+    window_query.awaitTermination()
