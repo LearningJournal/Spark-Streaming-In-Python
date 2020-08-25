@@ -15,7 +15,7 @@ if __name__ == "__main__":
 
     logger = Log4j(spark)
 
-    invoice_schema = StructType([
+    schema = StructType([
         StructField("CreatedTime", StringType()),
         StructField("Reading", DoubleType())
     ])
@@ -29,7 +29,7 @@ if __name__ == "__main__":
         .load()
 
     value_df = kafka_source_df.select(col("key").cast("string").alias("SensorID"),
-                                      from_json(col("value").cast("string"), invoice_schema).alias("value"))
+                                      from_json(col("value").cast("string"), schema).alias("value"))
 
     sensor_df = value_df.select("SensorID", "value.*") \
         .withColumn("CreatedTime", to_timestamp(col("CreatedTime"), "yyyy-MM-dd HH:mm:ss"))
