@@ -1,0 +1,10 @@
+{"InventoryID": "100001", "CreatedTime": "2020-09-09 10:00:00", "Campaigner": "ABC Ltd"}
+{"InventoryID": "100002", "CreatedTime": "2020-09-09 10:06:00", "Campaigner": "ABC Ltd"}
+{"InventoryID": "100003", "CreatedTime": "2020-09-09 10:02:00", "Campaigner": "XYZ Ltd"}
+{"InventoryID": "100004", "CreatedTime": "2020-09-09 10:09:00", "Campaigner": "XYZ Ltd"}
+
+{"InventoryID": "100001", "CreatedTime": "2020-09-09 10:18:00"}
+{"InventoryID": "100002", "CreatedTime": "2020-09-09 10:18:00"}
+{"InventoryID": "100003", "CreatedTime": "2020-09-09 10:18:00"}
+{"InventoryID": "100004", "CreatedTime": "2020-09-09 10:18:00"}
+{"InventoryID": "100001", "CreatedTime": "2020-09-09 10:18:00"}
