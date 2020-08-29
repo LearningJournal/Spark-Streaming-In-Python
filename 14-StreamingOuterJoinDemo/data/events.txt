@@ -1,0 +1,12 @@
+{"ImpressionID": "101", "CreatedTime": "2020-09-09 10:00:00", "Campaigner": "ABC Ltd"}
+{"ImpressionID": "102", "CreatedTime": "2020-09-09 10:00:00", "Campaigner": "ABC Ltd"}
+
+{"ImpressionID": "101", "CreatedTime": "2020-09-09 10:15:00"}
+{"ImpressionID": "101", "CreatedTime": "2020-09-09 10:16:00"}
+----------------------------------------
+{"ImpressionID": "103", "CreatedTime": "2020-09-09 10:40:00", "Campaigner": "ABC Ltd"}
+{"ImpressionID": "103", "CreatedTime": "2020-09-09 10:50:00"}
+----------------------------------------
+{"ImpressionID": "104", "CreatedTime": "2020-09-09 10:46:00", "Campaigner": "ABC Ltd"}
+{"ImpressionID": "104", "CreatedTime": "2020-09-09 11:00:00"}
+
